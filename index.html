@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>pzzf studio · Mobil Uygulamalar</title>
+<meta name="description" content="pzzf studio'nun mobil uygulamaları: Maaş ve Mesai Takibi, Bütçemiz, Vakit, Sınav Sayacı ve LoveNest. Hesap yok, veriler cihazında.">
+<meta property="og:title" content="pzzf studio · Mobil Uygulamalar">
+<meta property="og:description" content="Hesap yok, veriler cihazında. Maaş ve Mesai Takibi App Store'da.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F6F4FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0D17" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="pzzf-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F6F4FF;
+  --glow1: #E6DEFF;
+  --glow2: #F6E3FA;
+  --card: #FFFFFF;
+  --line: #ECE8F7;
+  --ink: #17141F;
+  --sub: #5F5A6E;
+  --brand: #6C5CF5;
+  --brand2: #B57BE8;
+  --soon-bg: #F1EEF9;
+  --soon-ink: #6F6890;
+  --live-bg: #E2F5EC;
+  --live-ink: #13795B;
+  --shadow: rgba(76, 58, 170, .10);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F0D17;
+    --glow1: #2A2150;
+    --glow2: #2B1838;
+    --card: #1A1724;
+    --line: #2A2638;
+    --ink: #F3F1FA;
+    --sub: #A7A1BA;
+    --soon-bg: #252135;
+    --soon-ink: #A39CC2;
+    --live-bg: #14352A;
+    --live-ink: #6FD9AE;
+    --shadow: rgba(0, 0, 0, .35);
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(600px 420px at 110% -10%, var(--glow1), transparent 65%),
+    radial-gradient(520px 420px at -20% 105%, var(--glow2), transparent 65%),
+    var(--bg);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 520px; margin: 0 auto; padding: 48px 16px 40px; }
+
+header { text-align: center; }
+.logo { height: 56px; width: auto; }
+.logo.dark { display: none; }
+@media (prefers-color-scheme: dark) { .logo.light { display: none; } .logo.dark { display: inline; } }
+h1 { margin-top: 14px; font-size: 24px; font-weight: 800; letter-spacing: -.5px; }
+.tag { margin-top: 6px; font-size: 15px; font-weight: 500; color: var(--sub); line-height: 1.5; }
+.pills { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.pills span { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--sub); }
+
+h2 { margin: 36px 4px 12px; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--sub); }
+
+.app {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+  padding: 14px; margin-bottom: 12px;
+  box-shadow: 0 10px 30px var(--shadow);
+  text-decoration: none; color: inherit;
+}
+.app img, .app .badge { width: 60px; height: 60px; border-radius: 15px; flex: none; }
+.badge { display: grid; place-items: center; background: linear-gradient(140deg, #EE6A8E, #B82D51); }
+.badge svg { width: 30px; height: 30px; fill: #fff; }
+.info { flex: 1; min-width: 0; }
+.info b { display: block; font-size: 16px; font-weight: 800; letter-spacing: -.2px; }
+.info p { margin-top: 2px; font-size: 13.5px; font-weight: 500; color: var(--sub); line-height: 1.4; }
+
+/* Featured (live) app */
+.app.live { flex-wrap: wrap; padding: 18px; border-color: transparent; position: relative; }
+.app.live::before {
+  content: ''; position: absolute; inset: 0; border-radius: 22px; padding: 1.5px;
+  background: linear-gradient(120deg, var(--brand), var(--brand2));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+}
+.app.live img { width: 68px; height: 68px; border-radius: 17px; }
+.status { display: inline-block; margin-bottom: 4px; font-size: 11.5px; font-weight: 800; letter-spacing: .4px; padding: 3px 8px; border-radius: 999px; }
+.status.on { background: var(--live-bg); color: var(--live-ink); }
+.status.soon { background: var(--soon-bg); color: var(--soon-ink); }
+.feats { width: 100%; list-style: none; display: grid; gap: 6px; margin: 4px 0 2px; }
+.feats li { font-size: 14px; font-weight: 500; color: var(--sub); line-height: 1.4; padding-left: 22px; position: relative; }
+.feats li::before { content: '✓'; position: absolute; left: 2px; font-weight: 800; color: var(--live-ink); }
+.store {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 6px; padding: 14px 18px; border-radius: 14px;
+  background: #000; color: #fff; text-decoration: none;
+  font-size: 16px; font-weight: 700; letter-spacing: -.2px;
+  transition: transform .15s ease, opacity .15s ease;
+}
+@media (prefers-color-scheme: dark) { .store { background: #fff; color: #000; } }
+.store:hover { opacity: .9; }
+.store:active { transform: scale(.98); }
+.store svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
+.store small { display: block; font-size: 11px; font-weight: 600; opacity: .75; line-height: 1; }
+.store span { text-align: left; line-height: 1.15; }
+
+.app.soon { opacity: .92; }
+
+footer { margin-top: 32px; text-align: center; font-size: 12.5px; font-weight: 500; color: var(--sub); line-height: 1.6; }
+footer a { color: var(--brand); text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img class="logo light" src="pzzf-logo.png" alt="pzzf" width="108" height="56">
+    <img class="logo dark" src="pzzf-logo-koyu.png" alt="pzzf" width="108" height="56">
+    <h1>Bağımsız uygulama stüdyosu</h1>
+    <p class="tag">Günlük hayatı kolaylaştıran sade uygulamalar.</p>
+    <div class="pills"><span>🔒 Hesap yok</span><span>📱 Veriler cihazında</span></div>
+  </header>
+
+  <h2>Yayında</h2>
+  <a class="app live" href="https://apps.apple.com/app/maa%C5%9F-ve-mesai-takibi/id6835857433" target="_blank" rel="noopener">
+    <img src="icon-maas.png" alt="Maaş ve Mesai Takibi simgesi" width="68" height="68">
+    <div class="info">
+      <span class="status on">● App Store'da</span>
+      <b>Maaş ve Mesai Takibi</b>
+      <p>Mesaini takvime gir, eline geçecek neti önceden gör.</p>
+    </div>
+    <ul class="feats">
+      <li>Hafta içi, hafta tatili ve resmi tatil mesaisi ayrı hesaplanır</li>
+      <li>Vergi, SGK ve damga vergisi dahil tahmini net maaş</li>
+      <li>Yıllık izin, brütten nete ve kıdem tazminatı araçları</li>
+    </ul>
+    <span class="store">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.83-3.49.83-.72 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.6-.75 2.99-.75 1.4 0 1.79.75 3.01.73 1.24-.02 2.03-1.13 2.79-2.25.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.45-3.7zM14.08 5.85c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.77-.97 2.82 1.02.08 2.07-.52 2.71-1.28z"/></svg>
+      <span><small>İndir</small>App Store</span>
+    </span>
+  </a>
+
+  <h2>Yakında</h2>
+  <div class="app soon">
+    <img src="icon-butcemiz.png" alt="" width="60" height="60">
+    <div class="info"><span class="status soon">Yakında</span><b>Bütçemiz</b><p>Gelir, gider ve taksitlerini tek yerde takip et.</p></div>
+  </div>
+  <div class="app soon">
+    <img src="icon-vakit.png" alt="" width="60" height="60">
+    <div class="info"><span class="status soon">Yakında</span><b>Vakit</b><p>Ezan vakitleri, kaza takibi, kıble ve zikirmatik.</p></div>
+  </div>
+  <div class="app soon">
+    <img src="icon-sinav.png" alt="" width="60" height="60">
+    <div class="info"><span class="status soon">Yakında</span><b>Sınav Sayacı</b><p>YKS, KPSS, ALES geri sayımı ve deneme net takibi.</p></div>
+  </div>
+  <div class="app soon">
+    <div class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+    <div class="info"><span class="status soon">Yakında</span><b>LoveNest</b><p>Çiftler için gün sayacı, mektuplar ve anılar.</p></div>
+  </div>
+
+  <footer>
+    <p>Instagram: <a href="https://www.instagram.com/pzzf.std/" target="_blank" rel="noopener">@pzzf.std</a></p>
+    <p><a href="https://pzzfstd.github.io/pzzf-legal/">Gizlilik</a> · <a href="https://pzzfstd.github.io/pzzf-legal/sartlar.html">Şartlar</a> · <a href="https://pzzfstd.github.io/pzzf-legal/destek.html">Destek</a></p>
+    <p>© 2026 pzzf studio</p>
+  </footer>
+</main>
+</body>
+</html>
