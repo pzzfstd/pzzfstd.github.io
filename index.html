@@ -3,177 +3,483 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>pzzf studio · Mobil Uygulamalar</title>
-<meta name="description" content="pzzf studio'nun mobil uygulamaları: Maaş ve Mesai Takibi, Bütçemiz, Vakit, Sınav Sayacı ve LoveNest. Hesap yok, veriler cihazında.">
-<meta property="og:title" content="pzzf studio · Mobil Uygulamalar">
-<meta property="og:description" content="Hesap yok, veriler cihazında. Maaş ve Mesai Takibi App Store'da.">
+<title>pzzf studio</title>
+<meta name="description" content="pzzf studio'nun mobil uygulamaları: Maaş ve Mesai Takibi, LoveNest, Vakit, Bütçemiz ve Sınav Sayacı. Hesap açtırmaz, verilerini telefonunda tutar.">
+<meta property="og:title" content="pzzf studio · Mobil uygulamalar">
+<meta property="og:description" content="Maaş ve Mesai Takibi App Store'da. LoveNest, Vakit, Bütçemiz ve Sınav Sayacı yolda.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#F6F4FF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F0D17" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://pzzfstd.github.io/">
+<meta name="theme-color" content="#F7F6FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111017" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" href="pzzf-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* Layout: bir "uygulama rafı". Sade bir stüdyo girişi, ardından her uygulama kendi renk dünyasında,
+   solda metin ve mağaza butonları, sağda uygulamanın imza ekranından canlı bir parça. */
 :root {
-  --bg: #F6F4FF;
-  --glow1: #E6DEFF;
-  --glow2: #F6E3FA;
-  --card: #FFFFFF;
-  --line: #ECE8F7;
-  --ink: #17141F;
-  --sub: #5F5A6E;
-  --brand: #6C5CF5;
-  --brand2: #B57BE8;
-  --soon-bg: #F1EEF9;
-  --soon-ink: #6F6890;
-  --live-bg: #E2F5EC;
-  --live-ink: #13795B;
-  --shadow: rgba(76, 58, 170, .10);
+  --bg: #F7F6FA;
+  --surface: #FFFFFF;
+  --ink: #17151E;
+  --sub: #5E5A6B;
+  --line: #E7E4EE;
+  --brand: #6A5AF0;
+  --ok: #13795B;
+  --ok-bg: #DDF3E9;
+  --soon-bg: #EFEDF5;
+  --soon-ink: #625D75;
+  --shadow: 0 1px 2px rgba(30, 20, 60, .05), 0 18px 40px -18px rgba(40, 28, 90, .22);
+  --f-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-body: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+  --r: 28px;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0F0D17;
-    --glow1: #2A2150;
-    --glow2: #2B1838;
-    --card: #1A1724;
-    --line: #2A2638;
-    --ink: #F3F1FA;
-    --sub: #A7A1BA;
-    --soon-bg: #252135;
-    --soon-ink: #A39CC2;
-    --live-bg: #14352A;
-    --live-ink: #6FD9AE;
-    --shadow: rgba(0, 0, 0, .35);
+  :root:not([data-theme="light"]) {
+    --bg: #111017; --surface: #1A1822; --ink: #F2F0F8; --sub: #A9A4B9; --line: #2B2836;
+    --brand: #9D90FF; --ok: #6ED8AA; --ok-bg: #143429; --soon-bg: #26232F; --soon-ink: #B0AAC4;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.6);
+    color-scheme: dark;
   }
 }
+:root[data-theme="dark"] {
+  --bg: #111017; --surface: #1A1822; --ink: #F2F0F8; --sub: #A9A4B9; --line: #2B2836;
+  --brand: #9D90FF; --ok: #6ED8AA; --ok-bg: #143429; --soon-bg: #26232F; --soon-ink: #B0AAC4;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -18px rgba(0,0,0,.6);
+  color-scheme: dark;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
-  min-height: 100vh;
-  font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
-  color: var(--ink);
-  background:
-    radial-gradient(600px 420px at 110% -10%, var(--glow1), transparent 65%),
-    radial-gradient(520px 420px at -20% 105%, var(--glow2), transparent 65%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg); color: var(--ink);
+  font: 500 16px/1.55 var(--f-body);
   -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-main { max-width: 520px; margin: 0 auto; padding: 48px 16px 40px; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1080px; margin: 0 auto; }
+svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
-header { text-align: center; }
-.logo { height: 56px; width: auto; }
-.logo.dark { display: none; }
-@media (prefers-color-scheme: dark) { .logo.light { display: none; } .logo.dark { display: inline; } }
-h1 { margin-top: 14px; font-size: 24px; font-weight: 800; letter-spacing: -.5px; }
-.tag { margin-top: 6px; font-size: 15px; font-weight: 500; color: var(--sub); line-height: 1.5; }
-.pills { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.pills span { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--sub); }
+/* Üst bar */
+.bar { display: flex; align-items: center; justify-content: space-between; padding-block: 20px; }
+.bar .logo { height: 34px; width: auto; }
+.logo.dk { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo.lt { display: none; } :root:not([data-theme="light"]) .logo.dk { display: block; } }
+:root[data-theme="dark"] .logo.lt { display: none; } :root[data-theme="dark"] .logo.dk { display: block; }
+.bar nav { display: flex; gap: 6px; }
+.bar nav a { text-decoration: none; font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 999px; color: var(--sub); }
+.bar nav a:hover { background: var(--surface); color: var(--ink); }
 
-h2 { margin: 36px 4px 12px; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--sub); }
+/* Giriş */
+.intro { padding-block: 40px 28px; display: grid; gap: 22px; }
+.intro h1 {
+  font-family: var(--f-display); font-weight: 800; letter-spacing: -0.035em;
+  font-size: clamp(38px, 7.4vw, 76px); line-height: .98; max-width: 14ch; text-wrap: balance;
+}
+.intro h1 span { color: var(--brand); }
+.intro p { font-size: clamp(16px, 2.2vw, 19px); color: var(--sub); max-width: 46ch; }
+.promises { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; font-weight: 700; color: var(--sub); }
+.promises span { display: inline-flex; align-items: center; gap: 7px; }
+.promises svg.i { width: 17px; height: 17px; color: var(--brand); }
 
+/* Uygulama dizini */
+.index { display: flex; flex-wrap: wrap; gap: 8px; padding-block: 4px 36px; }
+.index a {
+  display: inline-flex; align-items: center; gap: 9px; text-decoration: none;
+  padding: 7px 14px 7px 7px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line);
+  font-size: 14px; font-weight: 700; transition: border-color .2s, transform .2s;
+}
+.index a:hover { border-color: var(--a); transform: translateY(-1px); }
+.index img, .index .mini { width: 26px; height: 26px; border-radius: 8px; }
+.index em { font-style: normal; font-size: 11px; font-weight: 800; color: var(--ok); }
+
+/* Uygulama panelleri */
+.shelf { display: grid; gap: 18px; padding-bottom: 28px; }
 .app {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--card); border: 1px solid var(--line); border-radius: 22px;
-  padding: 14px; margin-bottom: 12px;
-  box-shadow: 0 10px 30px var(--shadow);
-  text-decoration: none; color: inherit;
+  --tint: color-mix(in oklab, var(--a) 9%, var(--surface));
+  background:
+    radial-gradient(520px 340px at 100% 0%, color-mix(in oklab, var(--a) 16%, transparent), transparent 70%),
+    var(--tint);
+  border: 1px solid color-mix(in oklab, var(--a) 18%, var(--line));
+  border-radius: var(--r);
+  padding: clamp(22px, 4vw, 44px);
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(22px, 4vw, 48px); align-items: center;
+  scroll-margin-top: 16px;
 }
-.app img, .app .badge { width: 60px; height: 60px; border-radius: 15px; flex: none; }
-.badge { display: grid; place-items: center; background: linear-gradient(140deg, #EE6A8E, #B82D51); }
-.badge svg { width: 30px; height: 30px; fill: #fff; }
-.info { flex: 1; min-width: 0; }
-.info b { display: block; font-size: 16px; font-weight: 800; letter-spacing: -.2px; }
-.info p { margin-top: 2px; font-size: 13.5px; font-weight: 500; color: var(--sub); line-height: 1.4; }
+.app.featured { box-shadow: var(--shadow); }
+.copy { display: grid; gap: 16px; min-width: 0; align-content: start; }
+.head { display: flex; align-items: center; gap: 14px; }
+.head img, .head .badge { width: 64px; height: 64px; border-radius: 17px; flex: none; box-shadow: 0 10px 24px -10px color-mix(in oklab, var(--a) 70%, transparent); }
+.badge { display: grid; place-items: center; background: linear-gradient(140deg, #EE6A8E, #B82D51); color: #fff; }
+.badge svg { width: 30px; height: 30px; fill: currentColor; }
+.head h2 { font-family: var(--f-display); font-weight: 800; letter-spacing: -0.02em; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.05; }
+.pill { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; font-weight: 800; letter-spacing: .02em; padding: 4px 10px; border-radius: 999px; }
+.pill.on { background: var(--ok-bg); color: var(--ok); }
+.pill.on::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill.soon { background: var(--soon-bg); color: var(--soon-ink); }
+.lead { font-size: clamp(17px, 2.1vw, 20px); font-weight: 600; line-height: 1.4; max-width: 34ch; text-wrap: balance; }
+.feats { list-style: none; display: grid; gap: 10px; }
+.feats li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--sub); line-height: 1.45; }
+.feats li b { color: var(--ink); font-weight: 700; }
+.feats svg.i { margin-top: 1px; color: var(--a); width: 20px; height: 20px; }
+.note { font-size: 12.5px; color: var(--sub); line-height: 1.5; max-width: 52ch; }
 
-/* Featured (live) app */
-.app.live { flex-wrap: wrap; padding: 18px; border-color: transparent; position: relative; }
-.app.live::before {
-  content: ''; position: absolute; inset: 0; border-radius: 22px; padding: 1.5px;
-  background: linear-gradient(120deg, var(--brand), var(--brand2));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
-}
-.app.live img { width: 68px; height: 68px; border-radius: 17px; }
-.status { display: inline-block; margin-bottom: 4px; font-size: 11.5px; font-weight: 800; letter-spacing: .4px; padding: 3px 8px; border-radius: 999px; }
-.status.on { background: var(--live-bg); color: var(--live-ink); }
-.status.soon { background: var(--soon-bg); color: var(--soon-ink); }
-.feats { width: 100%; list-style: none; display: grid; gap: 6px; margin: 4px 0 2px; }
-.feats li { font-size: 14px; font-weight: 500; color: var(--sub); line-height: 1.4; padding-left: 22px; position: relative; }
-.feats li::before { content: '✓'; position: absolute; left: 2px; font-weight: 800; color: var(--live-ink); }
+/* Mağaza butonları */
+.stores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
 .store {
-  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
-  margin-top: 6px; padding: 14px 18px; border-radius: 14px;
-  background: #000; color: #fff; text-decoration: none;
-  font-size: 16px; font-weight: 700; letter-spacing: -.2px;
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+  min-height: 54px; padding: 8px 20px 8px 16px; border-radius: 14px;
+  background: var(--ink); color: var(--bg);
   transition: transform .15s ease, opacity .15s ease;
 }
-@media (prefers-color-scheme: dark) { .store { background: #fff; color: #000; } }
-.store:hover { opacity: .9; }
-.store:active { transform: scale(.98); }
-.store svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
-.store small { display: block; font-size: 11px; font-weight: 600; opacity: .75; line-height: 1; }
-.store span { text-align: left; line-height: 1.15; }
+.store:hover { opacity: .88; }
+.store:active { transform: scale(.97); }
+.store svg { width: 24px; height: 24px; fill: currentColor; flex: none; }
+.store span { display: grid; line-height: 1.1; font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
+.store small { font-size: 11px; font-weight: 600; opacity: .75; letter-spacing: 0; }
+.store.later { background: transparent; color: var(--sub); border: 1.5px dashed color-mix(in oklab, var(--sub) 45%, transparent); cursor: default; }
+.store.later:hover { opacity: 1; }
 
-.app.soon { opacity: .92; }
+/* Ekran önizlemeleri */
+.screen {
+  position: relative; min-width: 0;
+  background: var(--surface); border-radius: 26px; padding: 20px;
+  box-shadow: var(--shadow); border: 1px solid var(--line);
+  display: grid; gap: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.screen .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.screen .ttl { font-family: var(--f-display); font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
+.tag { font-size: 11px; font-weight: 700; color: var(--sub); letter-spacing: .06em; text-transform: uppercase; }
+.k { font-size: 12.5px; font-weight: 600; color: var(--sub); }
+.v { font-family: var(--f-display); font-weight: 800; letter-spacing: -.02em; }
+.tile { background: color-mix(in oklab, var(--a) 8%, var(--surface)); border-radius: 16px; padding: 12px 14px; }
 
-footer { margin-top: 32px; text-align: center; font-size: 12.5px; font-weight: 500; color: var(--sub); line-height: 1.6; }
-footer a { color: var(--brand); text-decoration: none; font-weight: 700; }
+/* Maaş */
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.cal i { font-style: normal; aspect-ratio: 1; display: grid; place-items: center; border-radius: 10px; font-size: 13px; font-weight: 700; color: var(--sub); background: color-mix(in oklab, var(--sub) 8%, transparent); }
+.cal .h { background: none; aspect-ratio: auto; font-size: 11px; padding-bottom: 2px; }
+.cal .m { background: var(--a); color: #fff; }
+.cal .r { background: #FFE3B0; color: #7A4E00; }
+.cal .iz { background: #E1E5FF; color: #3B4CA8; }
+.net { background: var(--a); color: #fff; border-radius: 16px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: end; gap: 10px; }
+.net .k { color: rgba(255,255,255,.8); }
+.net .v { font-size: clamp(26px, 3.6vw, 32px); }
+.net .plus { font-size: 13px; font-weight: 800; background: rgba(255,255,255,.18); padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; font-weight: 600; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend span::before { content: ''; width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+
+/* LoveNest */
+.days { text-align: center; padding: 8px 0 4px; }
+.days .v { font-size: clamp(54px, 8vw, 72px); line-height: 1; color: var(--a); }
+.notif { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: color-mix(in oklab, var(--a) 7%, var(--surface)); border: 1px solid color-mix(in oklab, var(--a) 14%, var(--line)); }
+.notif .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--a); color: #fff; flex: none; position: relative; }
+.notif .ic svg.i { width: 20px; height: 20px; }
+.notif div { min-width: 0; }
+.notif b { display: block; font-size: 14px; font-weight: 800; line-height: 1.3; }
+.notif small { display: block; font-size: 12.5px; color: var(--sub); line-height: 1.35; }
+.notif time { margin-left: auto; align-self: start; font-size: 11px; font-weight: 700; color: var(--sub); white-space: nowrap; }
+.ping::after { content: ''; position: absolute; inset: -4px; border-radius: 15px; border: 2px solid var(--a); opacity: 0; animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { opacity: .7; transform: scale(.9); } 80%, 100% { opacity: 0; transform: scale(1.25); } }
+.letter { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; border: 1.5px dashed color-mix(in oklab, var(--a) 45%, var(--line)); }
+.letter svg.i { color: var(--a); width: 26px; height: 26px; }
+.letter b { display: block; font-size: 14px; font-weight: 800; }
+.letter small { font-size: 12.5px; color: var(--sub); }
+
+/* Vakit (her iki temada gece ekranı) */
+.screen.night { background: #0E1226; border-color: #1E2547; color: #EEF0FB; }
+.night .tag, .night .k { color: #AEB3D0; }
+.next { display: flex; justify-content: space-between; align-items: end; gap: 10px; padding: 16px; border-radius: 18px; background: linear-gradient(150deg, #1C2350, #141935); border: 1px solid #2A3266; }
+.next .v { font-size: clamp(36px, 5vw, 44px); line-height: 1; color: #F1C77E; }
+.next .left { text-align: right; }
+.next .left b { display: block; font-size: 15px; font-weight: 800; }
+.times { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.times div { padding: 9px 10px; border-radius: 12px; background: #151A38; display: grid; gap: 1px; }
+.times span { font-size: 11.5px; font-weight: 600; color: #AEB3D0; }
+.times b { font-size: 16px; font-weight: 800; }
+.times .now { background: #E2B05A; color: #1A1406; }
+.times .now span { color: #4A3510; }
+.zikir { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 18px; background: #151A38; }
+.ring { --p: 33; width: 58px; height: 58px; border-radius: 50%; flex: none; display: grid; place-items: center; background: conic-gradient(#E2B05A calc(var(--p) * 1%), #2A3266 0); }
+.ring b { width: 46px; height: 46px; border-radius: 50%; background: #151A38; display: grid; place-items: center; font-size: 16px; font-weight: 800; }
+.zikir div b { display: block; font-size: 15px; font-weight: 800; }
+.zikir small { font-size: 12.5px; color: #AEB3D0; }
+
+/* Bütçemiz */
+.bud { display: grid; gap: 10px; }
+.bud .row { display: grid; gap: 6px; }
+.bud .row div { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 700; gap: 10px; }
+.bud .row div span:last-child { color: var(--sub); font-weight: 600; }
+.track { height: 9px; border-radius: 99px; background: color-mix(in oklab, var(--sub) 14%, transparent); overflow: hidden; }
+.track i { display: block; height: 100%; width: var(--w); border-radius: 99px; background: var(--a); }
+.track i.warn { background: #E08A1E; }
+.alert { display: flex; gap: 10px; align-items: center; font-size: 13px; font-weight: 700; padding: 10px 12px; border-radius: 14px; background: color-mix(in oklab, #E08A1E 14%, var(--surface)); color: color-mix(in oklab, #E08A1E 60%, var(--ink)); }
+.alert svg.i { width: 18px; height: 18px; }
+
+/* Sınav */
+.chart { display: grid; grid-template-columns: repeat(6, 1fr); align-items: end; gap: 8px; height: 132px; padding-top: 18px; position: relative; }
+.chart .goal { position: absolute; left: 0; right: 0; bottom: calc(var(--g) * 1%); border-top: 1.5px dashed color-mix(in oklab, var(--a) 60%, transparent); }
+.chart .goal span { position: absolute; right: 0; top: -18px; font-size: 11px; font-weight: 800; color: var(--a); }
+.chart div { display: grid; gap: 4px; justify-items: center; height: 100%; align-content: end; }
+.chart i { width: 100%; max-width: 30px; height: calc(var(--h) * 1%); border-radius: 8px 8px 4px 4px; background: color-mix(in oklab, var(--a) 35%, var(--surface)); }
+.chart div:last-child i { background: var(--a); }
+.chart small { font-size: 10.5px; font-weight: 700; color: var(--sub); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pair .v { font-size: 24px; }
+.up { color: var(--ok); font-size: 12px; font-weight: 800; }
+
+/* Alt bilgi */
+footer { border-top: 1px solid var(--line); margin-top: 20px; padding-block: 28px 40px; display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: space-between; align-items: center; font-size: 14px; color: var(--sub); }
+footer nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+footer a { text-decoration: none; font-weight: 700; }
+footer a:hover { color: var(--ink); }
+
+/* Dar ekran */
+@media (max-width: 760px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .bar nav a.hide-sm { display: none; }
+  .intro { padding-block: 20px 20px; }
+}
+
+/* Hafif giriş hareketi: içerik her zaman görünür kalır */
+@media (prefers-reduced-motion: no-preference) {
+  .intro > *, .index { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .intro > :nth-child(2) { animation-delay: .06s; }
+  .intro > :nth-child(3) { animation-delay: .12s; }
+  .index { animation-delay: .18s; }
+  @keyframes rise { from { transform: translateY(10px); } to { transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ping::after { animation: none; }
+  html { scroll-behavior: auto; }
+}
 </style>
 </head>
 <body>
-<main>
-  <header>
-    <img class="logo light" src="pzzf-logo.png" alt="pzzf" width="108" height="56">
-    <img class="logo dark" src="pzzf-logo-koyu.png" alt="pzzf" width="108" height="56">
-    <h1>Bağımsız uygulama stüdyosu</h1>
-    <p class="tag">Günlük hayatı kolaylaştıran sade uygulamalar.</p>
-    <div class="pills"><span>🔒 Hesap yok</span><span>📱 Veriler cihazında</span></div>
-  </header>
+<div class="wrap">
 
-  <h2>Yayında</h2>
-  <a class="app live" href="https://apps.apple.com/app/maa%C5%9F-ve-mesai-takibi/id6835857433" target="_blank" rel="noopener">
-    <img src="icon-maas.png" alt="Maaş ve Mesai Takibi simgesi" width="68" height="68">
-    <div class="info">
-      <span class="status on">● App Store'da</span>
-      <b>Maaş ve Mesai Takibi</b>
-      <p>Mesaini takvime gir, eline geçecek neti önceden gör.</p>
-    </div>
-    <ul class="feats">
-      <li>Hafta içi, hafta tatili ve resmi tatil mesaisi ayrı hesaplanır</li>
-      <li>Vergi, SGK ve damga vergisi dahil tahmini net maaş</li>
-      <li>Yıllık izin, brütten nete ve kıdem tazminatı araçları</li>
-    </ul>
-    <span class="store">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.83-3.49.83-.72 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.6-.75 2.99-.75 1.4 0 1.79.75 3.01.73 1.24-.02 2.03-1.13 2.79-2.25.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.45-3.7zM14.08 5.85c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.77-.97 2.82 1.02.08 2.07-.52 2.71-1.28z"/></svg>
-      <span><small>İndir</small>App Store</span>
-    </span>
+<header class="bar">
+  <a href="#" aria-label="pzzf studio ana sayfa">
+    <img class="logo lt" src="pzzf-logo.png" alt="pzzf" width="65" height="34">
+    <img class="logo dk" src="pzzf-logo-koyu.png" alt="pzzf" width="65" height="34">
   </a>
+  <nav>
+    <a href="#uygulamalar" class="hide-sm">Uygulamalar</a>
+    <a href="https://www.instagram.com/pzzf.std/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+</header>
 
-  <h2>Yakında</h2>
-  <div class="app soon">
-    <img src="icon-butcemiz.png" alt="" width="60" height="60">
-    <div class="info"><span class="status soon">Yakında</span><b>Bütçemiz</b><p>Gelir, gider ve taksitlerini tek yerde takip et.</p></div>
+<section class="intro">
+  <h1>Hesap istemeyen, <span>işini gören</span> uygulamalar.</h1>
+  <p>Maaşını hesapla, bütçeni tut, vakitleri kaçırma. Bağımsız bir stüdyodan, sade ve Türkçe uygulamalar.</p>
+  <div class="promises">
+    <span><svg class="i" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Hesap açmak yok</span>
+    <span><svg class="i" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Veriler telefonunda</span>
+    <span><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>1 uygulama yayında, 4'ü yolda</span>
   </div>
-  <div class="app soon">
-    <img src="icon-vakit.png" alt="" width="60" height="60">
-    <div class="info"><span class="status soon">Yakında</span><b>Vakit</b><p>Ezan vakitleri, kaza takibi, kıble ve zikirmatik.</p></div>
-  </div>
-  <div class="app soon">
-    <img src="icon-sinav.png" alt="" width="60" height="60">
-    <div class="info"><span class="status soon">Yakında</span><b>Sınav Sayacı</b><p>YKS, KPSS, ALES geri sayımı ve deneme net takibi.</p></div>
-  </div>
-  <div class="app soon">
-    <div class="badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-    <div class="info"><span class="status soon">Yakında</span><b>LoveNest</b><p>Çiftler için gün sayacı, mektuplar ve anılar.</p></div>
-  </div>
+</section>
 
-  <footer>
-    <p>Instagram: <a href="https://www.instagram.com/pzzf.std/" target="_blank" rel="noopener">@pzzf.std</a></p>
-    <p><a href="https://pzzfstd.github.io/pzzf-legal/">Gizlilik</a> · <a href="https://pzzfstd.github.io/pzzf-legal/sartlar.html">Şartlar</a> · <a href="https://pzzfstd.github.io/pzzf-legal/destek.html">Destek</a></p>
-    <p>© 2026 pzzf studio</p>
-  </footer>
+<nav class="index" id="uygulamalar" aria-label="Uygulamalar">
+  <a href="#maas" style="--a:#13795B"><img src="icon-maas.png" alt="">Maaş ve Mesai <em>YAYINDA</em></a>
+  <a href="#lovenest" style="--a:#D63B62"><span class="mini badge"><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>LoveNest</a>
+  <a href="#vakit" style="--a:#C9962F"><img src="icon-vakit.png" alt="">Vakit</a>
+  <a href="#butcemiz" style="--a:#1F7A5C"><img src="icon-butcemiz.png" alt="">Bütçemiz</a>
+  <a href="#sinav" style="--a:#4F46E5"><img src="icon-sinav.png" alt="">Sınav Sayacı</a>
+</nav>
+
+<main class="shelf">
+
+  <!-- MAAŞ VE MESAİ -->
+  <article class="app featured" id="maas" style="--a:#13795B">
+    <div class="copy">
+      <div class="head">
+        <img src="icon-maas.png" alt="Maaş ve Mesai Takibi simgesi" width="64" height="64">
+        <div><h2>Maaş ve Mesai Takibi</h2><span class="pill on">App Store'da yayında</span></div>
+      </div>
+      <p class="lead">Mesaini takvime gir, eline geçecek neti ay bitmeden gör.</p>
+      <ul class="feats">
+        <li><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span><b>Mesai takvimi.</b> Hafta içi, hafta tatili ve resmi tatil mesaisi ayrı hesaplanır.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 1 .7V2l-1 .7-3-2-3 2-3-2-3 2Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span><b>Tahmini net maaş.</b> Gelir vergisi, SGK ve damga vergisi 2026 oranlarıyla dahil.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg><span><b>Yıllık izin ve araçlar.</b> İzin hakkı, brütten nete, kıdem tazminatı ve KDV hesaplama.</span></li>
+      </ul>
+      <div class="stores">
+        <a class="store" href="https://apps.apple.com/app/maa%C5%9F-ve-mesai-takibi/id6835857433" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.83-3.49.83-.72 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.6-.75 2.99-.75 1.4 0 1.79.75 3.01.73 1.24-.02 2.03-1.13 2.79-2.25.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.45-3.7zM14.08 5.85c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.77-.97 2.82 1.02.08 2.07-.52 2.71-1.28z"/></svg>
+          <span><small>App Store'dan</small>İndir</span>
+        </a>
+        <span class="store later" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.4.7-.4 1.2v17.2c0 .5.1.9.4 1.2l9.6-9.8L3.6 2.2zm10.6 10.8 2.9 2.9-11.6 6.6c-.4.2-.8.3-1.1.2l9.8-9.7zm4.1-4.2 3 1.7c.9.5.9 1.8 0 2.3l-3 1.7-3.1-3 3.1-2.7zM5.5 1.9c.3-.1.7 0 1.1.2l11.6 6.6-2.9 2.9-9.8-9.7z"/></svg>
+          <span><small>Google Play</small>Yakında</span>
+        </span>
+      </div>
+      <p class="note">Hesaplamalar tahminidir, bordron işyerine göre farklı olabilir. Uygulama bağımsız bir geliştiriciye aittir, resmi kurumlarla bağlantılı değildir.</p>
+    </div>
+
+    <div class="screen" aria-label="Uygulamadan örnek ekran">
+      <div class="top"><span class="ttl">Kasım 2026</span><span class="tag">Örnek</span></div>
+      <div class="cal">
+        <i class="h">Pt</i><i class="h">Sa</i><i class="h">Ça</i><i class="h">Pe</i><i class="h">Cu</i><i class="h">Ct</i><i class="h">Pz</i>
+        <i>2</i><i class="m">3</i><i>4</i><i class="m">5</i><i>6</i><i class="r">7</i><i>8</i>
+        <i class="m">9</i><i>10</i><i>11</i><i class="iz">12</i><i class="iz">13</i><i>14</i><i>15</i>
+        <i>16</i><i class="m">17</i><i class="m">18</i><i>19</i><i>20</i><i class="r">21</i><i>22</i>
+      </div>
+      <div class="legend"><span style="--c:#13795B">Mesai</span><span style="--c:#FFC871">Hafta tatili</span><span style="--c:#AEB8FF">İzin</span></div>
+      <div class="net">
+        <div><div class="k">Tahmini net maaş</div><div class="v">47.850 ₺</div></div>
+        <span class="plus">+6.420 ₺ mesai</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- LOVENEST -->
+  <article class="app" id="lovenest" style="--a:#D63B62">
+    <div class="copy">
+      <div class="head">
+        <span class="badge" role="img" aria-label="LoveNest simgesi"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+        <div><h2>LoveNest</h2><span class="pill soon">Yakında · App Store ve Google Play</span></div>
+      </div>
+      <p class="lead">Çiftler için tek yuva. Günleriniz, mektuplarınız ve anılarınız sadece ikinizde.</p>
+      <ul class="feats">
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span><b>Anlık konum bildirimi.</b> Partnerin eve, işe ya da okula vardığında haberin olsun. Konum yalnızca ikiniz de açtığınızda paylaşılır.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span><b>Geleceğe mektup.</b> Bugün yaz, seçtiğin gün açılsın. Tarih gelene kadar kilitli kalır.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span><b>Birlikte kaçıncı gün.</b> Gün sayacı, yıl dönümü ve özel gün hatırlatmaları.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M6 12h4M8 10v4"/><path d="M15 13h.01M18 11h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.6 5.42A3 3 0 0 0 5.08 17.3c.78 0 1.51-.37 1.98-.99L8.5 14.5h7l1.44 1.81c.47.62 1.2.99 1.98.99a3 3 0 0 0 2.98-3.29l-.6-5.42A4 4 0 0 0 17.32 5Z"/></svg><span><b>Çift oyunları.</b> Günün sorusu ve testlerle birbirinizi daha iyi tanıyın.</span></li>
+      </ul>
+    </div>
+
+    <div class="screen" aria-label="LoveNest örnek ekranı">
+      <div class="top"><span class="ttl">Bizim yuvamız</span><span class="tag">Örnek</span></div>
+      <div class="days"><div class="v">482</div><div class="k">gündür birlikte</div></div>
+      <div class="notif">
+        <span class="ic ping"><svg class="i" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <div><b>Deniz eve vardı</b><small>Kadıköy · konum ikinizde açık</small></div>
+        <time>şimdi</time>
+      </div>
+      <div class="letter">
+        <svg class="i" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div><b>Geleceğe mektup</b><small>14 Şubat 2027'de açılacak · 85 gün</small></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- VAKİT -->
+  <article class="app" id="vakit" style="--a:#C9962F">
+    <div class="copy">
+      <div class="head">
+        <img src="icon-vakit.png" alt="Vakit simgesi" width="64" height="64">
+        <div><h2>Vakit</h2><span class="pill soon">Yakında · App Store ve Google Play</span></div>
+      </div>
+      <p class="lead">Ezan vakitleri, zikir ve kıble tek uygulamada. İnternet yokken de çalışır.</p>
+      <ul class="feats">
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span><b>Ezan vakitleri.</b> Vaktinde ya da 5 ile 45 dakika önce hatırlatma. Vakitler telefonunda hesaplanır.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b>Zikirmatik.</b> Hedefli sayaç ve anlamlarıyla Esmâü'l-Hüsnâ.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></svg><span><b>Kıble pusulası.</b> Canlı yön gösterimi.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span><b>Namaz ve kaza takibi.</b> Kıldığın namazları ve kaza borcunu işaretle.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span><b>Dualar ve Cuma mesajları.</b> Kısa sureler, dualar ve paylaşılabilir mesajlar. Türkçe, Arapça, İngilizce ve Almanca.</span></li>
+      </ul>
+    </div>
+
+    <div class="screen night" aria-label="Vakit örnek ekranı">
+      <div class="top"><span class="ttl">İstanbul</span><span class="tag">Örnek</span></div>
+      <div class="next">
+        <div><div class="k">Akşam ezanına</div><div class="v">1:12:40</div></div>
+        <div class="left"><b>16:46</b><span class="k">Akşam</span></div>
+      </div>
+      <div class="times">
+        <div><span>İmsak</span><b>06:21</b></div>
+        <div><span>Güneş</span><b>07:49</b></div>
+        <div><span>Öğle</span><b>12:58</b></div>
+        <div class="now"><span>İkindi</span><b>15:21</b></div>
+        <div><span>Akşam</span><b>16:46</b></div>
+        <div><span>Yatsı</span><b>18:10</b></div>
+      </div>
+      <div class="zikir">
+        <span class="ring" style="--p:33"><b>33</b></span>
+        <div><b>Sübhânallah</b><small>Hedef 99 · bugün 3. tur</small></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- BÜTÇEMİZ -->
+  <article class="app" id="butcemiz" style="--a:#1F7A5C">
+    <div class="copy">
+      <div class="head">
+        <img src="icon-butcemiz.png" alt="Bütçemiz simgesi" width="64" height="64">
+        <div><h2>Bütçemiz</h2><span class="pill soon">Yakında · App Store ve Google Play</span></div>
+      </div>
+      <p class="lead">Paranın nereye gittiğini bil. Ay sonunu düşünmeden rahat nefes al.</p>
+      <ul class="feats">
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg><span><b>Gelir ve gider takibi.</b> Kategori kategori, ay ay.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span><b>Aylık limit.</b> Bütçeyi aşmadan önce haberin olsun.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span><b>Taksitler tek yerde.</b> Kredi ve kart taksitlerini birlikte gör.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg><span><b>Fiş tarama.</b> Fişin fotoğrafını çek, tutar kendiliğinden gelsin.</span></li>
+      </ul>
+    </div>
+
+    <div class="screen" aria-label="Bütçemiz örnek ekranı">
+      <div class="top"><span class="ttl">Kasım bütçesi</span><span class="tag">Örnek</span></div>
+      <div class="tile"><div class="k">Kalan</div><div class="v" style="font-size:30px">8.460 ₺</div></div>
+      <div class="bud">
+        <div class="row"><div><span>Market</span><span>3.240 / 4.000 ₺</span></div><div class="track"><i style="--w:81%"></i></div></div>
+        <div class="row"><div><span>Faturalar</span><span>1.870 / 2.500 ₺</span></div><div class="track"><i style="--w:75%"></i></div></div>
+        <div class="row"><div><span>Dışarıda yemek</span><span>1.910 / 2.000 ₺</span></div><div class="track"><i class="warn" style="--w:96%"></i></div></div>
+      </div>
+      <div class="alert"><svg class="i" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Dışarıda yemek limitinin %96'sı doldu</div>
+    </div>
+  </article>
+
+  <!-- SINAV -->
+  <article class="app" id="sinav" style="--a:#4F46E5">
+    <div class="copy">
+      <div class="head">
+        <img src="icon-sinav.png" alt="Sınav Sayacı simgesi" width="64" height="64">
+        <div><h2>Sınav Sayacı: Net Takip</h2><span class="pill soon">Yakında · App Store ve Google Play</span></div>
+      </div>
+      <p class="lead">Kaç gün kaldı, netin kaç? Hazırlığını tek ekranda gör.</p>
+      <ul class="feats">
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2"/></svg><span><b>Geri sayım.</b> YKS, KPSS, ALES, DGS ve MSÜ, ÖSYM takvimine göre.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg><span><b>Deneme netleri.</b> Ders ders gir, gelişimini grafikte gör.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3 2 6M22 6l-3-3"/></svg><span><b>Pomodoro.</b> Odaklan, çalışma serini koru.</span></li>
+        <li><svg class="i" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span><b>Konu takibi.</b> TYT, AYT ve KPSS konu listeleri.</span></li>
+      </ul>
+    </div>
+
+    <div class="screen" aria-label="Sınav Sayacı örnek ekranı">
+      <div class="top"><span class="ttl">TYT denemeleri</span><span class="tag">Örnek</span></div>
+      <div class="chart" style="--g:90">
+        <span class="goal" style="--g:90"><span>Hedef 90</span></span>
+        <div><i style="--h:62"></i><small>1</small></div>
+        <div><i style="--h:66"></i><small>2</small></div>
+        <div><i style="--h:64"></i><small>3</small></div>
+        <div><i style="--h:71"></i><small>4</small></div>
+        <div><i style="--h:74"></i><small>5</small></div>
+        <div><i style="--h:79"></i><small>6</small></div>
+      </div>
+      <div class="pair">
+        <div class="tile"><div class="k">Son net</div><div class="v">78,5</div><span class="up">+4,25</span></div>
+        <div class="tile"><div class="k">Çalışma serisi</div><div class="v">12 gün</div></div>
+      </div>
+    </div>
+  </article>
+
 </main>
+
+<footer>
+  <span>© 2026 pzzf studio</span>
+  <nav>
+    <a href="https://www.instagram.com/pzzf.std/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://pzzfstd.github.io/pzzf-legal/">Gizlilik</a>
+    <a href="https://pzzfstd.github.io/pzzf-legal/sartlar.html">Şartlar</a>
+    <a href="https://pzzfstd.github.io/pzzf-legal/destek.html">Destek</a>
+  </nav>
+</footer>
+
+</div>
 </body>
 </html>
